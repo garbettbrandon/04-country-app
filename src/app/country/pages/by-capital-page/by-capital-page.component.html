@@ -1,6 +1,12 @@
 <country-search-input
-  (value)="onSearch($event)"
+  (value)="query.set($event)"
   placeholder="Buscar por capital"
+  [initialValue]="query()"
 ></country-search-input>
 
-<country-table [countries]="countries()"></country-table>
+<country-table
+  [countries]="countryResource.value() ?? []"
+  [errorMessage]="countryResource.error()"
+  [isEmpty]="countryResource.value()?.length === 0"
+  [isLoading]="countryResource.isLoading()"
+></country-table>
